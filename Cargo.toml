@@ -16,7 +16,15 @@ keywords = ["screen", "recording", "video", "capture", "media"]
 categories = ["graphics", "multimedia", "multimedia::video"]
 
 [features]
-default = ["wayland", "x11"]
+default = ["macos", "wayland", "x11"]
+macos = [
+    "dep:tao-core-video-sys",
+    "dep:core-graphics-helmer-fork",
+    "dep:screencapturekit",
+    "dep:screencapturekit-sys",
+    "dep:cocoa",
+    "dep:objc",
+]
 wayland = ["dep:pipewire", "dep:dbus"]
 x11 = ["dep:xcb", "dep:x11"]
 
@@ -36,12 +44,12 @@ windows = { git = "https://github.com/JustRustThings/windows-rs", branch = "stuf
 ] }
 
 [target.'cfg(target_os = "macos")'.dependencies]
-tao-core-video-sys = "0.2.0"
-core-graphics-helmer-fork = "0.24.0"
-screencapturekit = "0.2.8"
-screencapturekit-sys = "0.2.8"
-cocoa = "0.25.0"
-objc = "0.2.7"
+tao-core-video-sys = { version = "0.2.0", optional = true }
+core-graphics-helmer-fork = { version = "0.24.0", optional = true }
+screencapturekit = { version = "0.2.8", optional = true }
+screencapturekit-sys = { version = "0.2.8", optional = true }
+cocoa = { version = "0.25.0", optional = true }
+objc = { version = "0.2.7", optional = true }
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies]
 rand = "0.8.5"
